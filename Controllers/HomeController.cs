@@ -32,16 +32,14 @@ namespace _26FebbraioEs.Controllers
 
             List<Models.Dipendente> ListaDipendenti = new List<Models.Dipendente>();  
 
-            ViewBag.Nome = dipendente.Nome;
-            ViewBag.Cognome = dipendente.Cognome;
-            ViewBag.Indirizzo = dipendente.Indirizzo;
-            ViewBag.CodiceFiscale = dipendente.CodiceFiscale;
-            ViewBag.Coniugato = dipendente.Coniugato;
-            ViewBag.FigliACarico = dipendente.FigliACarico;
-            ViewBag.Mansione = dipendente.Mansione;
 
             ListaDipendenti.Add(dipendente);
 
+            return View();
+        }
+
+        public ActionResult Pagamento()
+        {
             return View();
         }
     }
