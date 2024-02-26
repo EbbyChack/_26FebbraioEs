@@ -1,0 +1,56 @@
+﻿@model _26FebbraioEs.Models.Dipendente
+@{
+    ViewBag.Title = "Dipendente";
+
+}
+
+<div>
+    <b>Nome:</b>    @ViewBag.Nome <br />
+    <b>Cognome:</b>  @ViewBag.Cognome <br />
+    <b>Indirizzo:</b> @ViewBag.Indirizzo
+</div>
+
+<h3><b>Crea nuovo dipendente</b></h3>
+
+@using (Html.BeginForm("Dipendente", "Home", FormMethod.Post))
+{
+    <div class="form-group">
+        @Html.LabelFor(model => model.Nome)
+        @Html.TextBoxFor(model => model.Nome, new { @class = "form-control" })
+    </div>
+
+    <div class="form-group">
+        @Html.LabelFor(model => model.Cognome)
+        @Html.TextBoxFor(model => model.Cognome, new { @class = "form-control" })
+    </div>
+
+    <div class="form-group">
+        @Html.LabelFor(model => model.Indirizzo)
+        @Html.TextBoxFor(model => model.Indirizzo, new { @class = "form-control" })
+    </div>
+
+    <div class="form-group">
+        @Html.LabelFor(model => model.CodiceFiscale)
+        @Html.TextBoxFor(model => model.CodiceFiscale, new { @class = "form-control" })
+    </div>
+
+    <div class="form-group">
+        @Html.LabelFor(model => model.Coniugato)
+        @Html.CheckBoxFor(model => model.Coniugato, new { @class = "my-3" })
+    </div>
+
+    <div class="form-group">
+        @Html.LabelFor(model => model.FigliACarico)
+        @Html.TextBoxFor(model => model.FigliACarico, new { @class = "form-control" })
+    </div>
+
+    <div class="form-group">
+        @Html.LabelFor(model => model.Mansione)
+        @Html.TextBoxFor(model => model.Mansione, new { @class = "form-control" })
+    </div>
+
+    <button type="submit" class="btn btn-light">Submit</button>
+}
+
+
+
