@@ -1,7 +1,21 @@
 ﻿@using _26FebbraioEs.Models
 @model List<Dipendente>
 
-<h1>List of Employees</h1>
+<h1>Lista Dipendenti</h1>
+<style>
+    table {
+        width: 100%;
+        table-layout: fixed;
+    }
+
+    th, td {
+        padding: 15px;
+    }
+
+    thead {
+        background-color: #f1f1f1;
+    }
+</style>
 
 <table>
     <thead>
@@ -23,7 +37,7 @@
                 <td>@dipendente.Cognome</td>
                 <td>@dipendente.Indirizzo</td>
                 <td>@dipendente.CodiceFiscale</td>
-                <td>@(dipendente.Coniugato ? "Yes" : "No")</td>
+                <td>@(dipendente.Coniugato ? "Si" : "No")</td>
                 <td>@dipendente.FigliACarico</td>
                 <td>@dipendente.Mansione</td>
             </tr>
