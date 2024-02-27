@@ -6,7 +6,7 @@
 
 <h2>Pagamento</h2>
 
-@using (Html.BeginForm()) 
+@using (Html.BeginForm("InserisciPagamento", "Home", FormMethod.Post))
 {
     @Html.AntiForgeryToken()
     

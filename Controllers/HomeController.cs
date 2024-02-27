@@ -30,8 +30,8 @@ namespace _26FebbraioEs.Controllers
                 conn.Open();
 
                 string query = @"
-                    INSERT INTO Dipendenti (Nome, Cognome, Indirizzo, CodiceFiscale, Coniugato, FigliACarico, Mansione) 
-                    VALUES (@Nome, @Cognome, @Indirizzo, @CodiceFiscale, @Coniugato, @FigliACarico, @Mansione)";
+                        INSERT INTO Dipendenti (Nome, Cognome, Indirizzo, CodiceFiscale, Coniugato, FigliACarico, Mansione) 
+                        VALUES (@Nome, @Cognome, @Indirizzo, @CodiceFiscale, @Coniugato, @FigliACarico, @Mansione)";
 
                 using (SqlCommand cmd = new SqlCommand(query, conn))
                 {
@@ -46,7 +46,7 @@ namespace _26FebbraioEs.Controllers
                     int rowsAffected = cmd.ExecuteNonQuery();
                     if (rowsAffected == 0)
                     {
-                       Response.Write("Errore");
+                        Response.Write("Errore");
                     }
                 }
             }
@@ -59,6 +59,37 @@ namespace _26FebbraioEs.Controllers
         public ActionResult Pagamento()
         {
             return View();
+        }
+        [HttpPost]
+        public ActionResult InserisciPagamento(Models.Pagamento pagamento)
+        {
+            string connectionString = ConfigurationManager.ConnectionStrings["MyDb"].ConnectionString;
+
+            using (SqlConnection conn = new SqlConnection(connectionString))
+            {
+                conn.Open();
+
+                string query = @"
+                        INSERT INTO Pagamenti (IdDipendente, PeriodoPagamento, Ammontare, TipoPagamento) 
+                        VALUES (@IdDipendente, @PeriodoPagamento, @Ammontare, @TipoPagamento)";
+
+                using (SqlCommand cmd = new SqlCommand(query, conn))
+                {
+                    cmd.Parameters.AddWithValue("@IdDipendente", pagamento.IdDipendente);
+                    cmd.Parameters.AddWithValue("@PeriodoPagamento", pagamento.PeriodoPagamento);
+                    cmd.Parameters.AddWithValue("@Ammontare", pagamento.Ammontare);
+                    cmd.Parameters.AddWithValue("@TipoPagamento", pagamento.TipoPagamento);
+                   
+
+                    int rowsAffected = cmd.ExecuteNonQuery();
+                    if (rowsAffected == 0)
+                    {
+                        Response.Write("Errore");
+                    }
+                }
+            }
+
+            return RedirectToAction("Index");
         }
     }
 }
