@@ -1,4 +1,5 @@
-﻿using System;
+﻿using _26FebbraioEs.Models;
+using System;
 using System.Collections.Generic;
 using System.Configuration;
 using System.Data.SqlClient;
@@ -12,7 +13,35 @@ namespace _26FebbraioEs.Controllers
     {
         public ActionResult Index()
         {
-            return View();
+            string connectionString = ConfigurationManager.ConnectionStrings["MyDb"].ConnectionString;
+
+            using (SqlConnection conn = new SqlConnection(connectionString))
+            {
+                conn.Open();
+
+                string query = "SELECT * FROM Dipendenti";
+
+                using (SqlCommand cmd = new SqlCommand(query, conn))
+                {
+                   SqlDataReader rdr = cmd.ExecuteReader();
+                    List<Dipendente> dipendenti = new List<Dipendente>();
+                    while (rdr.Read())
+                    {
+                        Dipendente dipendente = new Dipendente();
+                      
+                        dipendente.Nome = rdr["Nome"].ToString();
+                        dipendente.Cognome = rdr["Cognome"].ToString();
+                        dipendente.Indirizzo = rdr["Indirizzo"].ToString();
+                        dipendente.CodiceFiscale = rdr["CodiceFiscale"].ToString();
+                        dipendente.Coniugato = Convert.ToBoolean(rdr["Coniugato"]);
+                        dipendente.FigliACarico = Convert.ToInt32(rdr["FigliACarico"]);
+                        dipendente.Mansione = rdr["Mansione"].ToString();
+                        dipendenti.Add(dipendente);
+                    }
+                    return View(dipendenti);
+                }
+            }
+            
         }
 
         public ActionResult Dipendente()
