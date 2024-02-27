@@ -1,5 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Configuration;
+using System.Data.SqlClient;
 using System.Linq;
 using System.Web;
 using System.Web.Mvc;
@@ -13,30 +15,46 @@ namespace _26FebbraioEs.Controllers
             return View();
         }
 
-        public ActionResult About()
+        public ActionResult Dipendente()
         {
-            ViewBag.Message = "Your application description page.";
-
             return View();
         }
 
-        public ActionResult Contact()
+        [HttpPost]
+        public ActionResult InserisciDipendente(Models.Dipendente dipendente)
         {
-            ViewBag.Message = "Your contact page.";
+            string connectionString = ConfigurationManager.ConnectionStrings["MyDb"].ConnectionString;
 
-            return View();
+            using (SqlConnection conn = new SqlConnection(connectionString))
+            {
+                conn.Open();
+
+                string query = @"
+                    INSERT INTO Dipendenti (Nome, Cognome, Indirizzo, CodiceFiscale, Coniugato, FigliACarico, Mansione) 
+                    VALUES (@Nome, @Cognome, @Indirizzo, @CodiceFiscale, @Coniugato, @FigliACarico, @Mansione)";
+
+                using (SqlCommand cmd = new SqlCommand(query, conn))
+                {
+                    cmd.Parameters.AddWithValue("@Nome", dipendente.Nome);
+                    cmd.Parameters.AddWithValue("@Cognome", dipendente.Cognome);
+                    cmd.Parameters.AddWithValue("@Indirizzo", dipendente.Indirizzo);
+                    cmd.Parameters.AddWithValue("@CodiceFiscale", dipendente.CodiceFiscale);
+                    cmd.Parameters.AddWithValue("@Coniugato", dipendente.Coniugato);
+                    cmd.Parameters.AddWithValue("@FigliACarico", dipendente.FigliACarico);
+                    cmd.Parameters.AddWithValue("@Mansione", dipendente.Mansione);
+
+                    int rowsAffected = cmd.ExecuteNonQuery();
+                    if (rowsAffected == 0)
+                    {
+                       Response.Write("Errore");
+                    }
+                }
+            }
+
+            return RedirectToAction("Index");
         }
 
-        public ActionResult Dipendente(Models.Dipendente dipendente)
-        {
 
-            List<Models.Dipendente> ListaDipendenti = new List<Models.Dipendente>();  
-
-
-            ListaDipendenti.Add(dipendente);
-
-            return View();
-        }
 
         public ActionResult Pagamento()
         {

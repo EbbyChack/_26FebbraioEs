@@ -7,7 +7,7 @@ namespace _26FebbraioEs.Models
 {
     public class Dipendente
     {
-        public int Id { get; set; }
+       
         public string Nome { get; set; }
         public string Cognome { get; set; }
         public string Indirizzo { get; set; }

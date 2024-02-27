@@ -6,7 +6,7 @@
 
 <h2>Dipendente</h2>
 
-@using (Html.BeginForm()) 
+@using (Html.BeginForm("InserisciDipendente","Home",FormMethod.Post)) 
 {
     @Html.AntiForgeryToken()
     

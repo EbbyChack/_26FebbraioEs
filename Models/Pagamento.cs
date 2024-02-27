@@ -7,7 +7,7 @@ namespace _26FebbraioEs.Models
 {
     public class Pagamento
     {
-        public int Id { get; set; }
+      
         public int IdDipendente { get; set; }
         public DateTime PeriodoPagamento { get; set; }
         public decimal Ammontare {  get; set; }
